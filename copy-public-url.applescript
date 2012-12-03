@@ -1,3 +1,10 @@
+(*
+A Folder Action Script that copies to clipboard the public URL of any newly created file inside of a public folder in Dropbox or Google Drive
+*)
+
+-- replace <YOUR_DROPBOX_ID> with your actual Dropbox ID (eg 12345678)
+property dropboxId : "YOUR_DROPBOX_ID"
+
 on adding folder items to this_folder after receiving added_items
 	try
 		-- almost entirely taken from http://forums.dropbox.com/topic.php?id=4659
@@ -13,8 +20,6 @@ on adding folder items to this_folder after receiving added_items
 			set pathInsidePublic to (do shell script "echo '" & posixRawFilename & "' | sed 's#^.*Dropbox/Public/##'")
 			if the pathInsidePublic is not equal to posixRawFilename then
 				set theWebSafeFileName to switchText from pathInsidePublic to "%20" instead of " "
-				-- replace <YOUR_DROPBOX_ID> with your actual Dropbox ID (eg 12345678)
-				set dropboxId to "<YOUR_DROPBOX_ID>"
 				set theURL to "http://dl-web.dropbox.com/u/" & dropboxId & "/" & theWebSafeFileName
 			else
 				set theURL to posixRawFilename
@@ -22,29 +27,34 @@ on adding folder items to this_folder after receiving added_items
 			set the clipboard to theURL as text
 			
 			-- see http://growl.info/documentation/applescript-support.php
-			tell application "GrowlHelperApp"
-				
-				-- Make a list of all the notification types
-				-- that this script will ever send:
-				set the allNotificationsList to ¬
-					{"Public URL"}
-				
-				set the enabledNotificationsList to allNotificationsList
-				
-				-- Register our script with growl.
-				-- You can optionally (as here) set a default icon
-				-- for this script's notifications.
-				register as application ¬
-					"CopyDropboxURL" all notifications allNotificationsList ¬
-					default notifications enabledNotificationsList ¬
-					icon of application "Dropbox"
-				
-				notify with name ¬
-					"Public URL" title ¬
-					"Dropbox Public Folder Updated" description ¬
-					(theURL & " copied to clipboard.") application name "CopyDropboxURL"
-				
+			tell application "System Events"
+				set isGrowlRunning to (count of (every process whose bundle identifier is "com.Growl.GrowlHelperApp")) > 0
 			end tell
+			if isGrowlRunning then
+				tell application "GrowlHelperApp"
+					
+					-- Make a list of all the notification types
+					-- that this script will ever send:
+					set the allNotificationsList to ¬
+						{"Public URL"}
+					
+					set the enabledNotificationsList to allNotificationsList
+					
+					-- Register our script with growl.
+					-- You can optionally (as here) set a default icon
+					-- for this script's notifications.
+					register as application ¬
+						"CopyDropboxURL" all notifications allNotificationsList ¬
+						default notifications enabledNotificationsList ¬
+						icon of application "Dropbox"
+					
+					notify with name ¬
+						"Public URL" title ¬
+						"Dropbox Public Folder Updated" description ¬
+						(theURL & " copied to clipboard.") application name "CopyDropboxURL"
+					
+				end tell
+			end if
 		end if
 	end try
 end adding folder items to
