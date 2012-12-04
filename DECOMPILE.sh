@@ -1,3 +1,5 @@
+# DECOMPILE.sh: decompiles copy-public-url.scpt into copy-public-url.applescript
+
 SCRIPT_PATH=`dirname $0`
 
 echo "decompiling copy-public-url.scpt into copy-public-url.applescript"
@@ -6,7 +8,7 @@ osadecompile "$SCRIPT_PATH/copy-public-url.scpt" > "$SCRIPT_PATH/copy-public-url
 echo "Performing find-and-replace; resetting setting property YOUR_DROPBOX_ID"
 sed -i.bak -E '/^property.*dropboxId/ s/"[0-9]+"/"YOUR_DROPBOX_ID"/' "$SCRIPT_PATH/copy-public-url.applescript"
 
-echo "Removing spurrious blank lines from end of file introduced in osacompile"
+echo "Removing spurrious trailing newline added to copy-public-url.scpt by osacompile"
 perl -i -pe "chomp if eof" "$SCRIPT_PATH/copy-public-url.applescript" 
 
 echo "cleaning up: removing temporary files"
