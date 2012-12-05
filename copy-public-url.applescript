@@ -11,6 +11,14 @@ on adding folder items to this_folder after receiving added_items
 		set the item_count to the number of items in the added_items
 		if the item_count is equal to 1 then
 			set theFile to item 1 of added_items
+			-- http://dl-web.dropbox.com/u/123/screenshots/WZUNDS-Screen%20Shot%202012.12.5-16.23.39.png
+			tell application "Finder"
+				set theNewFileName to the name of theFile
+				set theNewFileName to (reformatTimestamp(theNewFileName) of me)
+				set theNewFileName to (makeHardToGuess(theNewFileName) of me)
+				set the name of theFile to theNewFileName as string
+			end tell
+			
 			set theRawFilename to ("" & theFile)
 			
 			-- theRawFilename == "Macintosh HD:Users:USERNAME:Dropbox:Public:screenshots:FILENAME.ext"
@@ -68,3 +76,46 @@ to switchText from t to r instead of s
 	set text item delimiters to d
 	t
 end switchText
+
+on makeHardToGuess(theFileName)
+	return getRandomString() & "-" & theFileName
+end makeHardToGuess
+
+-- from http://face.centosprime.com/macosxw/random-in-applescript/
+on getRandomString()
+	local output, length, alphabet
+	set {alphabet, length} to {"ABCDEFGHIJKLMNOPQRSTUVWXYZ", 6}
+	-- set alphabet to "abcdefghijklmnopqrstuvwxyz"
+	set output to {}
+	
+	repeat length times
+		set end of output to some item of alphabet
+	end repeat
+	return output as text --> "JUEQPJBH", "LFOBPXHJI", "TQRVYJPHFA"
+end getRandomString
+
+on reformatTimestamp(theFileName)
+	local osxScreenshotDateFormat, theDate, reformattedDate
+	set osxScreenshotDateFormat to "^(.*)([0-9-]{10}) at ([0-9.]+ [AP]M)(.*)$"
+	set theDate to sedShellCommand("-n -E", "s#" & osxScreenshotDateFormat & "#\\2 \\3#p", theFileName)
+	
+	if theDate is not equal to "" then
+		set reformattedDate to formatTimestamp(theDate)
+		set theFileName to sedShellCommand("-E", "s#" & osxScreenshotDateFormat & "#\\1" & reformattedDate & "\\4#", theFileName)
+	end if
+	return theFileName
+end reformatTimestamp
+
+-- see http://www.j-schell.de/node/58
+on formatTimestamp(x)
+	set x to date (x)
+	set {m, d, y, t, h, mi, s} to {x's month as integer, x's day, x's year, x's time string, x's hours, x's minutes, x's seconds}
+	return (y & "." & m & "." & d & "-" & h & "." & mi & "." & s) as string
+end formatTimestamp
+
+
+-- see http://stackoverflow.com/a/12292190
+on sedShellCommand(sedFlags, sedExpression, str)
+	set shellCmd to "echo " & quoted form of str & " | sed " & sedFlags & " " & quoted form of sedExpression
+	return (do shell script shellCmd)
+end sedShellCommand
