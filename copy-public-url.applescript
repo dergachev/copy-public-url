@@ -16,6 +16,7 @@ on adding folder items to this_folder after receiving added_items
 				set theNewFileName to the name of theFile
 				set theNewFileName to (reformatTimestamp(theNewFileName) of me)
 				set theNewFileName to (makeHardToGuess(theNewFileName) of me)
+				set theNewFileName to (spacesToUnderscores(theNewFileName) of me)
 				set the name of theFile to theNewFileName as string
 			end tell
 			
@@ -27,7 +28,7 @@ on adding folder items to this_folder after receiving added_items
 			
 			set pathInsidePublic to (do shell script "echo '" & posixRawFilename & "' | sed 's#^.*Dropbox/Public/##'")
 			if the pathInsidePublic is not equal to posixRawFilename then
-				set theWebSafeFileName to switchText from pathInsidePublic to "%20" instead of " "
+				set theWebSafeFileName to (escapeForURL(pathInsidePublic))
 				set theURL to "http://dl-web.dropbox.com/u/" & dropboxId & "/" & theWebSafeFileName
 			else
 				set theURL to posixRawFilename
@@ -67,19 +68,18 @@ on adding folder items to this_folder after receiving added_items
 	end try
 end adding folder items to
 
-to switchText from t to r instead of s
-	set d to text item delimiters
-	set text item delimiters to s
-	set t to t's text items
-	set text item delimiters to r
-	tell t to set t to item 1 & ({""} & rest)
-	set text item delimiters to d
-	t
-end switchText
+on escapeForURL(theURL)
+	return sedShellCommand("-E", "s# #%20#g", theURL)
+end escapeForURL
 
 on makeHardToGuess(theFileName)
 	return getRandomString() & "-" & theFileName
 end makeHardToGuess
+
+on spacesToUnderscores(theFileName)
+	return sedShellCommand("-E", "s# #_#g", theFileName)
+end spacesToUnderscores
+
 
 -- from http://face.centosprime.com/macosxw/random-in-applescript/
 on getRandomString()
