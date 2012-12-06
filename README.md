@@ -48,10 +48,11 @@ Keep in mind that you can also specify your Dropbox ID by editing INSTALL-CONFIG
 Now associate copy-public-url.scpt as a Folder Action to
 ~/Dropbox/Public/screenshots (or any other subfolder of ~/Dropbox/Public): 
 
-* Locate `~/Dropbox/Public/screenshots` in Finder
-* Right click on the `screenshots` folder, select "Folder Actions Setup..."
+* In Finder, find and right-click on the Right click on the `~/Dropbox/Public/screenshots` folder 
 * Select `copy-public-url.scpt` to have it act on all files added to the `screenshots` folder.
+* ![Screenshot](http://dl-web.dropbox.com/u/29440342/screenshots/UGRLZJ-Screen_Shot_2012.12.6-13.36.30.png)
 
+http://dl-web.dropbox.com/u/29440342/screenshots/FDZYVG-Screen_Shot_2012.12.6-13.33.3.png
 ## OS X Screenshots
 
 Optionall, consider running the following terminal commands to tell OS X to
