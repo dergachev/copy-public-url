@@ -31,7 +31,7 @@ git clone https://github.com/dergachev/copy-public-url.git
 cd copy-public-url
 ``` 
 
-Now, find your Dropbox user ID, as follows: In Finder, right-click on any file under `~/Dropbox/Public`, choose "Dropbox > Copy Public Link". You'll have a link in your clipboard like http://dl.dropbox.com/u/12345678/mycoolpic.jpg, and 12345678 is the user ID. 
+Before starting, be sure to find your Dropbox user ID (the 12345678 in https://dl.dropbox.com/u/1234567/file.txt); See [Finding your Dropbox ID](#Finding your Dropbox ID)
 
 Now run INSTALL.sh, passing your Dropbox user ID as the first argument. It
 compiles copy-public-url.applescript into copy-public-url.scpt, and installs it
@@ -45,14 +45,8 @@ Keep in mind that you can also specify your Dropbox ID by editing INSTALL-CONFIG
 
 > **Non-terminal option**: Note, if you'd rather do as little command-line as possible, you can achieve the same thing by manually creating `/Users/USERNAME/Library/Scripts/Folder Actions Scripts`, opening up "AppleScript Editor", pasting the contents of `copy-public-url.applescript` into a new script, and saving it as `copy-public-url.scpt` in the newly created folder. See http://apple.stackexchange.com/a/58146. Don't forget to find-and-replace `YOUR_DROPBOX_ID` with your actual Dropbox user ID, eg 12345678. 
 
-Now associate copy-public-url.scpt as a Folder Action to
-~/Dropbox/Public/screenshots (or any other subfolder of ~/Dropbox/Public): 
+Now associate copy-public-url.scpt as a Folder Action to `~/Dropbox/Public/screenshots`. For more info, see [Associating a folder action](#Associating a folder action)
 
-* In Finder, find and right-click on the Right click on the `~/Dropbox/Public/screenshots` folder 
-* Select `copy-public-url.scpt` to have it act on all files added to the `screenshots` folder.
-* ![Screenshot](http://dl-web.dropbox.com/u/29440342/screenshots/UGRLZJ-Screen_Shot_2012.12.6-13.36.30.png)
-
-http://dl-web.dropbox.com/u/29440342/screenshots/FDZYVG-Screen_Shot_2012.12.6-13.33.3.png
 ## OS X Screenshots
 
 Optionall, consider running the following terminal commands to tell OS X to
@@ -68,6 +62,28 @@ That's it. Now type CMD-SHIFT-4 and take a screenshot, and the dropbox URL shoul
 If you have Growl installed, the script will trigger a Growl notification. 
 
 > See http://guides.macrumors.com/Taking_Screenshots_in_Mac_OS_X#Shortcuts for more shortcuts
+
+### Finding your Dropbox ID
+
+To find your Dropbox user ID, do the following: 
+* In Finder, right-click on any file under `~/Dropbox/Public`
+* choose "Dropbox > Copy Public Link". 
+* You'll have a link in your clipboard like http://dl.dropbox.com/u/12345678/mycoolpic.jpg
+* 12345678 is the user ID. 
+
+<img src="https://dl.dropbox.com/u/29440342/screenshots/YCOJCG-Screen_Shot_2012.12.8-12.40.53.png" width="50%">
+
+### Assigning a folder action
+
+Now associate copy-public-url.scpt as a Folder Action to ~/Dropbox/Public/screenshots 
+(or any other subfolder of ~/Dropbox/Public). See [Associating a folder action](#Associating a folder action)
+
+* In Finder, find and right-click on the Right click on the `~/Dropbox/Public/screenshots` folder 
+* Select `copy-public-url.scpt` to have it act on all files added to the `screenshots` folder.
+
+<img src="http://dl-web.dropbox.com/u/29440342/screenshots/UGRLZJ-Screen_Shot_2012.12.6-13.36.30.png" width="50%">
+
+
 
 ## Contributing Back using DECOMPILE.sh
 
