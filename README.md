@@ -112,6 +112,8 @@ in mind when using Dropbox's Public folder.
 
 * http://www.macresearch.org/tutorial_applescript_for_scientists_part_i
 * http://www.macresearch.org/tutorial_applescript_for_scientists_part_ii
+* https://developer.apple.com/library/mac/documentation/applescript/conceptual/applescriptlangguide/AppleScriptLanguageGuide.pdf
+
 * http://growl.info/documentation/applescript-support.php
 * http://forums.dropbox.com/topic.php?id=4659
 * http://collindonnell.com/2012/04/01/share-with-dropbox-applescript/
