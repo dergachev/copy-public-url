@@ -18,8 +18,6 @@ Afterwards, you can configure OS X to store screenshots in
 Although the script was written with sharing screenshots in mind, it can be associated 
 with any folder under `~/Dropbox/Public`.
 
-The script was adapted from http://forums.dropbox.com/topic.php?id=4659
-
 ## Installation
 
 Download `dropbox-copy-public-url.applescript` by running the following terminal commands:
@@ -31,7 +29,9 @@ git clone https://github.com/dergachev/copy-public-url.git
 cd copy-public-url
 ``` 
 
-Before starting, be sure to find your Dropbox user ID (the 12345678 in https://dl.dropbox.com/u/1234567/file.txt); See [Finding your Dropbox ID](#Finding your Dropbox ID)
+> Before starting, be sure to find your Dropbox user ID 
+> (the 12345678 in https://dl.dropbox.com/u/1234567/file.txt); 
+> For more info, see [Finding your Dropbox ID](#Finding your Dropbox ID)
 
 Now run INSTALL.sh, passing your Dropbox user ID as the first argument. It
 compiles copy-public-url.applescript into copy-public-url.scpt, and installs it
@@ -63,6 +63,8 @@ If you have Growl installed, the script will trigger a Growl notification.
 
 > See http://guides.macrumors.com/Taking_Screenshots_in_Mac_OS_X#Shortcuts for more shortcuts
 
+## Tips
+
 ### Finding your Dropbox ID
 
 To find your Dropbox user ID, do the following: 
@@ -81,9 +83,7 @@ Now associate copy-public-url.scpt as a Folder Action to ~/Dropbox/Public/screen
 * In Finder, find and right-click on the Right click on the `~/Dropbox/Public/screenshots` folder 
 * Select `copy-public-url.scpt` to have it act on all files added to the `screenshots` folder.
 
-<img src="http://dl-web.dropbox.com/u/29440342/screenshots/UGRLZJ-Screen_Shot_2012.12.6-13.36.30.png" width="50%">
-
-
+<img src="http://dl-web.dropbox.com/u/29440342/screenshots/UGRLZJ-Screen_Shot_2012.12.6-13.36.30.png" width="70%">
 
 ## Contributing Back using DECOMPILE.sh
 
