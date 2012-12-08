@@ -110,14 +110,18 @@ in mind when using Dropbox's Public folder.
 
 ## Learn more
 
-* http://www.macresearch.org/tutorial_applescript_for_scientists_part_i
-* http://www.macresearch.org/tutorial_applescript_for_scientists_part_ii
-* http://developer.apple.com/library/mac/#documentation/AppleScript/Conceptual/AppleScriptLangGuide/
+Dropbox / screenshots
 
-* http://growl.info/documentation/applescript-support.php
 * http://forums.dropbox.com/topic.php?id=4659
 * http://collindonnell.com/2012/04/01/share-with-dropbox-applescript/
 * http://code.google.com/p/bloodrop/
 * https://gist.github.com/3426280 
 * http://news.ycombinator.com/item?id=4841234
 * http://apple.stackexchange.com/questions/53422/save-screenshot-with-my-own-name?rq=1
+
+Applescript:
+
+* http://growl.info/documentation/applescript-support.php
+* http://www.macresearch.org/tutorial_applescript_for_scientists_part_i
+* http://www.macresearch.org/tutorial_applescript_for_scientists_part_ii
+* http://developer.apple.com/library/mac/#documentation/AppleScript/Conceptual/AppleScriptLangGuide/
