@@ -5,15 +5,16 @@ created file inside of a public folder in Dropbox
 Let's say you have a file at this path:
   /Users/dergachev/Dropbox/Public/screenshots/XMLLHA-Screen_Shot_2012.12.10-16.23.53.png
 Then it will growl and copy the following URL: 
-  http://dl-web.dropbox.com/u/12345678/screenshots/IYLPOO-Screen_Shot_2012.12.10-16.32.48.png
+  http://dl-web.dropbox.com/u/12345678/screenshots/IYLPOO-2012.12.10-16.32.png
 If the property "renameFiles" is set, then it will also rename the new files as follows:
- "Screen Shot 2012-12-10 at 4.23.53 PM.png" becomes "XMLLHA-Screen_Shot_2012.12.10-16.23.53.png"
+ "Screen Shot 2012-12-10 at 4.23.53 PM.png" becomes "XMLLHA-2012.12.10-16.23.png"
 
 *)
 
 -- replace <YOUR_DROPBOX_ID> with your actual Dropbox ID (eg 12345678)
 property dropboxId : "YOUR_DROPBOX_ID"
 property renameFiles : true -- whether to rename newly created files
+property includeSeconds : false -- whether to include the seconds value in the reformatted timestamp
 
 on adding folder items to this_folder after receiving added_items
 	try
@@ -51,12 +52,13 @@ on adding folder items to this_folder after receiving added_items
 	end try
 end adding folder items to
 
--- "Screen Shot 2012-12-10 at 4.23.53 PM.png" becomes "XMLLHA-Screen_Shot_2012.12.10-16.23.53.png"
+-- "Screen Shot 2012-12-10 at 4.23.53 PM.png" becomes "XMLLHA-Screen_Shot_2012.12.10-16.23.png"
 on renameFile(theFile)
 	tell application "Finder"
 		set theNewFileName to the name of theFile
 		-- reformatTimestamp must come before other transformations
 		set theNewFileName to (reformatTimestamp(theNewFileName) of me)
+		set theNewFileName to (removeScreenShotFromFilename(theNewFileName) of me)
 		set theNewFileName to (makeHardToGuess(theNewFileName) of me)
 		set theNewFileName to (spacesToUnderscores(theNewFileName) of me)
 		set the name of theFile to theNewFileName as string
@@ -66,6 +68,10 @@ end renameFile
 on makeHardToGuess(theFileName)
 	return getRandomString() & "-" & theFileName
 end makeHardToGuess
+
+on removeScreenShotFromFilename(theFileName)
+	return sedShellCommand("-E", "s#Screen Shot ##g", theFileName)
+end removeScreenShotFromFilename
 
 on spacesToUnderscores(theFileName)
 	return sedShellCommand("-E", "s# #_#g", theFileName)
@@ -88,8 +94,9 @@ end isFileInsideDropboxPublic
 -- from http://face.centosprime.com/macosxw/random-in-applescript/
 on getRandomString()
 	local output, length, alphabet
-	set {alphabet, length} to {"ABCDEFGHIJKLMNOPQRSTUVWXYZ", 6}
 	-- set alphabet to "abcdefghijklmnopqrstuvwxyz"
+	set alphabet to "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	set length to 6
 	set output to {}
 	
 	repeat length times
@@ -110,11 +117,15 @@ on reformatTimestamp(theFileName)
 	return theFileName
 end reformatTimestamp
 
--- see http://www.j-schell.de/node/58
+-- adapted from http://www.j-schell.de/node/58
 on formatTimestamp(x)
 	set x to date (x)
 	set {m, d, y, t, h, mi, s} to {x's month as integer, x's day, x's year, x's time string, x's hours, x's minutes, x's seconds}
-	return (y & "." & m & "." & d & "-" & h & "." & mi & "." & s) as string
+	if includeSeconds then
+		return (y & "." & m & "." & d & "-" & h & "." & mi & "." & s) as string
+	else
+		return (y & "." & m & "." & d & "-" & h & "." & mi) as string
+	end if
 end formatTimestamp
 
 
