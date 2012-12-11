@@ -6,7 +6,7 @@
 # define usage function
 usage(){
 	echo "Usage: $0 <YOUR_DROPBOX_ID>"
-	echo "  Alternatively, edit INSTALL-CONFIG.sh to provide default arguments"
+	echo "  Alternatively, edit INSTALL-CONFIG.sh to provide default arguments" 2>&1
 	exit 1
 }
 

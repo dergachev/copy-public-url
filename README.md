@@ -2,68 +2,60 @@ copy-public-url
 ===============
 
 A Folder Action Script that copies to clipboard the public URL of any newly
-created file inside of a public folder in Dropbox or Google Drive
+created file inside of a specified subdirectory of Dropbox/Public, and emits a
+Growl notification.
 
-## Overview
+The included install-copy-public-url.app configures OS X to store screenshots under 
+Dropbox/Public/screenshots, and installs copy-public-url.scpt to automatically run
+on file added to that folder. 
 
-This gist includes a custom Folder Action Script
-(`copy-public-url.applescript`) that copies to clipboard the public URL
-of any newly created file inside of `~/Dropbox/Public`, and emit a Growl
-notification.
+## Installation via installer
 
-Afterwards, you can configure OS X to store screenshots in
-`~/Dropbox/Public/screenshots` (instead of `~/Desktop`), and associate
-"copy-public-url.scpt" as a Folder Action to run on all files created in that folder.
+Before starting, be sure to find your Dropbox user ID, as per [Finding your
+Dropbox ID](#Finding your Dropbox ID)
 
-Although the script was written with sharing screenshots in mind, it can be associated 
-with any folder under `~/Dropbox/Public`.
+First download (or git clone) this repository somewhere in your home directory.
+Then double-click on install-copy-public-url.app, and you're good to go.
 
-## Installation
+Now type CMD-SHIFT-4 to take a screenshot, and you should see the following:
 
-Download `dropbox-copy-public-url.applescript` by running the following terminal commands:
+![Screenshot](http://dl-web.dropbox.com/u/29440342/screenshots/CKVTLL-2012.12.10-19.11.png)
 
-Checkout this repo to any directory (perhaps ~/code):
+
+## Installation via terminal
+
+For the do-it-yourself types who don't trust installers, the following terminal
+commands will also work:
 
 ```bash
+# Checkout this repo to any directory (perhaps ~/code):
 git clone https://github.com/dergachev/copy-public-url.git
 cd copy-public-url
+
+# INSTALL.sh compiles copy-public-url.applescript into copy-public-url.scpt, 
+# and installs it to `~/Library/Scripts/Folder\ Action\ Scripts` via symlink.
+# The first argument is your Dropbox user ID; can also be specified in INSTALL-CONFIG.sh
+bash INSTALL.sh 123456 # replace 123456 with YOUR_DROPBOX_ID
 ``` 
 
-> Before starting, be sure to find your Dropbox user ID 
-> (the 12345678 in https://dl.dropbox.com/u/1234567/file.txt); 
-> For more info, see [Finding your Dropbox ID](#Finding your Dropbox ID)
+Now associate copy-public-url.scpt as a Folder Action to
+`/Users/USERNAME/Dropbox/Public/screenshots`, as per [Installing Folder
+Actions](#Installing Folder Actions)
 
-Now run INSTALL.sh, passing your Dropbox user ID as the first argument. It
-compiles copy-public-url.applescript into copy-public-url.scpt, and installs it
-to `~/Library/Scripts/Folder\ Action\ Scripts`
+## Tips
 
-```bash
-bash INSTALL.sh 123456 # replace 123456 with YOUR_DROPBOX_ID
-```
+### Configuring OSX Screenshot Location
 
-Keep in mind that you can also specify your Dropbox ID by editing INSTALL-CONFIG.sh.
-
-> **Non-terminal option**: Note, if you'd rather do as little command-line as possible, you can achieve the same thing by manually creating `/Users/USERNAME/Library/Scripts/Folder Actions Scripts`, opening up "AppleScript Editor", pasting the contents of `copy-public-url.applescript` into a new script, and saving it as `copy-public-url.scpt` in the newly created folder. See http://apple.stackexchange.com/a/58146. Don't forget to find-and-replace `YOUR_DROPBOX_ID` with your actual Dropbox user ID, eg 12345678. 
-
-Now associate copy-public-url.scpt as a Folder Action to `~/Dropbox/Public/screenshots`. For more info, see [Associating a folder action](#Associating a folder action)
-
-## OS X Screenshots
-
-Optionall, consider running the following terminal commands to tell OS X to
-store newly-created screenshots in `~/Dropbox/Public/screenshots`:
+The following code will tell OS X to save screeshots to
+/Users/USERNAME/Dropbox/Public/screenshots, instead of the default
+/Users/USERNAME/Desktop:
 
 ```bash
-mkdir ~/Dropbox/Public/screenshots
 defaults write com.apple.screencapture location ~/Dropbox/Public/screenshots
 killall SystemUIServer # restarts SystemUIServer to see change
 ```
 
-That's it. Now type CMD-SHIFT-4 and take a screenshot, and the dropbox URL should be in your clipboard.
-If you have Growl installed, the script will trigger a Growl notification. 
-
-> See http://guides.macrumors.com/Taking_Screenshots_in_Mac_OS_X#Shortcuts for more shortcuts
-
-## Tips
+For more info, see http://osxdaily.com/2011/01/26/change-the-screenshot-save-file-location-in-mac-os-x/
 
 ### Finding your Dropbox ID
 
@@ -75,40 +67,29 @@ To find your Dropbox user ID, do the following:
 
 <img src="https://dl.dropbox.com/u/29440342/screenshots/YCOJCG-Screen_Shot_2012.12.8-12.40.53.png" width="50%">
 
-### Assigning a folder action
+### Installing Folder Actions
 
-Now associate copy-public-url.scpt as a Folder Action to ~/Dropbox/Public/screenshots 
-(or any other subfolder of ~/Dropbox/Public). See [Associating a folder action](#Associating a folder action)
+Folder Actions are a mechanism to have OS X automatically run a compiled
+applescript (eg copy-public-url.scpt) whenever files are added to a given
+folder (perhaps /Users/USERNAME/Dropbox/Public/screenshots).  To install
+copy-public-url.scpt as a Folder Action on Dropbox/Public/screenshots:
 
-* In Finder, find and right-click on the Right click on the `~/Dropbox/Public/screenshots` folder 
-* Select `copy-public-url.scpt` to have it act on all files added to the `screenshots` folder.
+* In Finder, open Dropbox/Public
+* Right click on "screenshots" (or any other folder you'd like)
+* Select "Folder Actions Setup"
+* Select `copy-public-url.scpt`, and click "Attach"
 
 <img src="http://dl-web.dropbox.com/u/29440342/screenshots/UGRLZJ-Screen_Shot_2012.12.6-13.36.30.png" width="70%">
 
-## Contributing Back using DECOMPILE.sh
+### Contributing Back via DECOMPILE.sh
 
-If you ever want to edit copy-public-url.scpt directly in the AppleScript
-Editor, and then push your changes back to copy-public-url.applescript, I've
-provided a script called DECOMPILE.sh. Running it will overriding the contents
-of copy-public-url.applescript (so be careful!), and remove your Dropbox ID
-hardcoded by INSTALL.sh.
+If you ever want to make modifications to copy-public-url.applescript, it's
+recommended that you make the changes directly to copy-public-url.scpt (via the
+AppleScript Editor app), test them, and and then run DECOMPILE.sh to push them
+back to copy-public-url.applescript source file.  The Dropbox ID hardcoded into
+copy-public-url.scpt will be automatically removed.
 
-## Security concern
-
-By sharing a link to one of your screenshots (eg
-`http://dl-web.dropbox.com/u/12345678/screenshots/Screen%20Shot%202012-11-28%20at%206.38.04%20PM.png`)
-you are advertising your Dropbox user ID. Based on this, an attacker can easily
-guess other URLs for your screenshots, and try them until one works. Keep this
-in mind when using Dropbox's Public folder.
-
-## TODO
-
-* Fix security problem, either by leveraging a dropbox feature, or by randomizing file names in the script. [#4](https://github.com/dergachev/copy-public-url/issues/4)
-* It would be nice if clicking on the Growl notification showed the file in Finder, or maybe open it in Preview.app for annotations.[#5](https://github.com/dergachev/copy-public-url/issues/5)
-* Consider supporting Google Drive or Box[#1](https://github.com/dergachev/copy-public-url/issues/1)
-* Is there a dropbox API to do this better than hardcoding the URL syntax?[#6](https://github.com/dergachev/copy-public-url/issues/6)
-
-## Learn more
+### Learn more
 
 Dropbox / screenshots
 
@@ -121,7 +102,13 @@ Dropbox / screenshots
 
 Applescript:
 
+* http://apple.stackexchange.com/a/58146
 * http://growl.info/documentation/applescript-support.php
 * http://www.macresearch.org/tutorial_applescript_for_scientists_part_i
 * http://www.macresearch.org/tutorial_applescript_for_scientists_part_ii
 * http://developer.apple.com/library/mac/#documentation/AppleScript/Conceptual/AppleScriptLangGuide/
+
+OS X Screenshots:
+
+* http://guides.macrumors.com/Taking_Screenshots_in_Mac_OS_X#Shortcuts 
+* http://git.io/e5HrNQ
