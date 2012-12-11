@@ -12,7 +12,7 @@ on file added to that folder.
 ## Installation via installer
 
 Before starting, be sure to find your Dropbox user ID, as per [Finding your
-Dropbox ID](#Finding your Dropbox ID)
+Dropbox ID](#finding-your-dropbox-id)
 
 First download (or git clone) this repository somewhere in your home directory.
 Then double-click on install-copy-public-url.app, and you're good to go.
@@ -40,7 +40,7 @@ bash INSTALL.sh 123456 # replace 123456 with YOUR_DROPBOX_ID
 
 Now associate copy-public-url.scpt as a Folder Action to
 `/Users/USERNAME/Dropbox/Public/screenshots`, as per [Installing Folder
-Actions](#Installing Folder Actions)
+Actions](#installing-folder-actions)
 
 ## Tips
 
