@@ -8,7 +8,6 @@ Then it will growl and copy the following URL:
   http://dl-web.dropbox.com/u/12345678/screenshots/IYLPOO-2012.12.10-16.32.png
 If the property "renameFiles" is set, then it will also rename the new files as follows:
  "Screen Shot 2012-12-10 at 4.23.53 PM.png" becomes "XMLLHA-2012.12.10-16.23.png"
-
 *)
 
 -- replace <YOUR_DROPBOX_ID> with your actual Dropbox ID (eg 12345678)
