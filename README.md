@@ -1,6 +1,12 @@
 copy-public-url
 ===============
 
+Note: as of Oct 1, 2013, the Dropbox application comes with [screenshot uploads](https://www.dropbox.com/help/1964/en) built in.
+The workflow is identical, except that their copied URL links to an HTML page displaying the image,
+instead of the file directly, which is arguably a lot more useful.
+
+## Description
+
 A Folder Action Script that copies to clipboard the public URL of any newly
 created file inside of a specified subdirectory of Dropbox/Public, and emits a
 Growl notification.
