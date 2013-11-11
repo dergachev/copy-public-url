@@ -1,9 +1,13 @@
-copy-public-url
-===============
-
-Note: as of Oct 1, 2013, the Dropbox application comes with [screenshot uploads](https://www.dropbox.com/help/1964/en) built in.
+*Note*: as of Oct 1, 2013, the Dropbox application comes with [screenshot uploads](https://www.dropbox.com/help/1964/en) built in.
 The workflow is identical, except that their copied URL links to an HTML page displaying the image,
 instead of the file directly, which is arguably a lot more useful.
+
+*Note*: as of Nov 10, 2013 I rewrote copy-public-url functionality from applescript to Ruby,
+and published this on github as [dropbox-screenshots](https://github.com/dergachev/dropbox-screenshots). 
+As a result, this repo will be no longer maintained.
+
+copy-public-url
+===============
 
 ## Description
 
